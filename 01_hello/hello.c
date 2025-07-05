@@ -8,7 +8,7 @@ int my_init(void)
 	return 0;
 }
 
-int my_exit(void)
+void my_exit(void)
 {
 	printk("hello - Goodbye, Kernel!\n");
 }
