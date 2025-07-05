@@ -1,0 +1,1 @@
+savedcmd_/home/tufan/Linux_Can_Driver/01_hello/hello.mod := printf '%s\n'   hello.o | awk '!x[$$0]++ { print("/home/tufan/Linux_Can_Driver/01_hello/"$$0) }' > /home/tufan/Linux_Can_Driver/01_hello/hello.mod

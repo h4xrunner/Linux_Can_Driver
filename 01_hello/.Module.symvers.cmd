@@ -1,0 +1,1 @@
+savedcmd_/home/tufan/Linux_Can_Driver/01_hello/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/tufan/Linux_Can_Driver/01_hello/Module.symvers -T /home/tufan/Linux_Can_Driver/01_hello/modules.order -i Module.symvers -e 
