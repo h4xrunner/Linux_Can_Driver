@@ -2,13 +2,13 @@
 #include <linux/init.h>
 
 
-int __init my_init(void)
+static int __init my_init(void)
 {
 	printk("hello - Hello, Kernel!\n");
 	return 0;
 }
 
-void __exit my_exit(void)
+static void __exit my_exit(void)
 {
 	printk("hello - Goodbye, Kernel!\n");
 }
