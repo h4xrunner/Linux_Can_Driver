@@ -2,7 +2,7 @@
 #include <linux/init.h>
 #include <linux/gpio/consumer.h>
 
-static struct gpiod_desc *led, *button;
+static struct gpio_desc *led, *button;
 
 #define IO_LED 21
 #define IO_BUTTON 20
@@ -18,7 +18,7 @@ static int __init my_init(void)
 		printk("gpioctrl - Error getting pin21\n");
 		return -ENODEV;
 	}
-	button = go_to_desc(IO_BUTTON+IO_OFFSET);
+	button = gpiod_to_desc(IO_BUTTON+IO_OFFSET);
 	if(!button){
 		printk("gpioctrl - Error getting pin20\n");
 		return -ENODEV;
