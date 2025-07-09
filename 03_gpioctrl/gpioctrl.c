@@ -1,67 +1,52 @@
 #include <linux/module.h>
 #include <linux/init.h>
-#include <linux/gpio.h>       
-#include <linux/kernel.h>
+#include <linux/gpio/consumer.h>
 
-#define IO_LED     18
-#define IO_BUTTON  20
+static struct gpio_desc *led, *button;
+
+#define IO_LED 21
+#define IO_BUTTON 20
+
+#define IO_OFFSET 512
 
 static int __init my_init(void)
 {
-    int status;
+	int status;
 
-    
-    status = gpio_request(IO_LED, "led");
-    if (status) {
-        printk(KERN_ERR "gpioctrl - Error requesting LED GPIO %d\n", IO_LED);
-        return status;
-    }
+	led = gpio_to_desc(IO_LED + IO_OFFSET);
+	if (!led) {
+		printk("gpioctrl - Error getting pin 21\n");
+		return -ENODEV;
+	}
 
-    
-    status = gpio_request(IO_BUTTON, "button");
-    if (status) {
-        printk(KERN_ERR "gpioctrl - Error requesting BUTTON GPIO %d\n", IO_BUTTON);
-        gpio_free(IO_LED);
-        return status;
-    }
+	button = gpio_to_desc(IO_BUTTON + IO_OFFSET);
+	if (!button) {
+		printk("gpioctrl - Error getting pin 20\n");
+		return -ENODEV;
+	}
 
-    
-    status = gpio_direction_output(IO_LED, 0);
-    if (status) {
-        printk(KERN_ERR "gpioctrl - Error setting LED direction\n");
-        gpio_free(IO_LED);
-        gpio_free(IO_BUTTON);
-        return status;
-    }
+	status = gpiod_direction_output(led, 0);
+	if (status) {
+		printk("gpioctrl - Error setting pin 20 to output\n");
+		return status;
+	}
 
-    
-    status = gpio_direction_input(IO_BUTTON);
-    if (status) {
-        printk(KERN_ERR "gpioctrl - Error setting BUTTON direction\n");
-        gpio_free(IO_LED);
-        gpio_free(IO_BUTTON);
-        return status;
-    }
+	status = gpiod_direction_input(button);
+	if (status) {
+		printk("gpioctrl - Error setting pin 21 to input\n");
+		return status;
+	}
 
-   
-    gpio_set_value(IO_LED, 1);
+	gpiod_set_value(led, 1);
 
-    
-    printk(KERN_INFO "button is %spressed\n", gpio_get_value(IO_BUTTON) ? "" : "not ");
+	printk("gpioctrl - Button is %spressed\n", gpiod_get_value(button) ? "" : "not ");
 
-    return 0;
+	return 0;
 }
 
 static void __exit my_exit(void)
 {
-  
-    gpio_set_value(IO_LED, 0);
-
-    
-    gpio_free(IO_LED);
-    gpio_free(IO_BUTTON);
-
-    printk(KERN_INFO "gpioctrl - Module unloaded\n");
+	gpiod_set_value(led, 0);
 }
 
 module_init(my_init);
@@ -69,4 +54,4 @@ module_exit(my_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("h4xrunner");
-MODULE_DESCRIPTION("GPIO control example without device tree");
+MODULE_DESCRIPTION("An example for using GPIOs without the device tree");
