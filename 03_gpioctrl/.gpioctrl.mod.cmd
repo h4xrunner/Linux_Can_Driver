@@ -1,1 +1,0 @@
-savedcmd_/home/tufan/Linux_Can_Driver/03_gpioctrl/gpioctrl.mod := printf '%s\n'   gpioctrl.o | awk '!x[$$0]++ { print("/home/tufan/Linux_Can_Driver/03_gpioctrl/"$$0) }' > /home/tufan/Linux_Can_Driver/03_gpioctrl/gpioctrl.mod
