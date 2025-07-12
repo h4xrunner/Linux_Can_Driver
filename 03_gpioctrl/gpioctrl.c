@@ -12,8 +12,9 @@ static struct gpio_desc *led, *button;
 static int __init my_init(void)
 {
 	int status;
-
+	int button_val=gpiod_get_value(button);
 	led = gpio_to_desc(IO_LED + IO_OFFSET);
+	gpiod_set_value(led, button_val);
 	if (!led) {
 		printk("gpioctrl - Error getting pin 21\n");
 		return -ENODEV;
