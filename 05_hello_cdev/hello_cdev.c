@@ -2,10 +2,19 @@
 #include <linux/init.h>
 #include <linux/fs.h>
 static int major;
-static struct file_operations fops;
+
+static ssize_t my_read (struct file *f, char __user *u, size_t l, loff_t *o){
+	printk("hello_cdev - Read is called\n");
+	return 0;
+}
+
+static struct file_operations fops = {
+	.read = my_read
+};
+
 static int __init my_init(void)
 {
-	major = register_chrdev(64, "hello_cdev", &fops);	
+	major = register_chrdev(0, "hello_cdev", &fops);	
 	if(major <0){
 		printk("hello_cdev - Error registering chrdev\n");
 		return major;
