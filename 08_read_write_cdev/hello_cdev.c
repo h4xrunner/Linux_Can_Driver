@@ -12,6 +12,7 @@ static ssize_t my_read (struct file *filp, char __user *user_buf, size_t len, lo
 		return 0;
 
 	not_copied= copy_to_user(user_buf, &text[*off], to_copy);
+	delta = to_copy-not_copied;
 	if(not_copied)
 		pr_warn("hello_cdev - Could only copy %d bytes\n", delta);
 	*off += delta;
