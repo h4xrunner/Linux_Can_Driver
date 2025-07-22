@@ -27,8 +27,11 @@ static ssize_t my_write (struct file *filp, const char __user *user_buf, size_t 
 		return 0;
 
 	not_copied= copy_from_user(&text[*off], user_buf, to_copy);
+	delta = to_copy - not_copied;
 	if(not_copied)
 		pr_warn("hello_cdev - Could only copy %d bytes\n", delta);
+	
+	*off+= delta;
 	return delta;
 }
 
@@ -39,7 +42,7 @@ static struct file_operations fops = {
 
 static int __init my_init(void)
 {
-	major = register_chrdev(236, "hello_cdev", &fops);	
+	major = register_chrdev(0, "hello_cdev", &fops);	
 	if(major <0){
 		printk("hello_cdev - Error registering chrdev\n");
 		return major;
