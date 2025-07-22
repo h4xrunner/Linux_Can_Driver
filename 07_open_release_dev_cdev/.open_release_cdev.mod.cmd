@@ -1,0 +1,1 @@
+savedcmd_/home/tufan2/Linux_Can_Driver/07_open_release_dev_cdev/open_release_cdev.mod := printf '%s\n'   open_release_cdev.o | awk '!x[$$0]++ { print("/home/tufan2/Linux_Can_Driver/07_open_release_dev_cdev/"$$0) }' > /home/tufan2/Linux_Can_Driver/07_open_release_dev_cdev/open_release_cdev.mod

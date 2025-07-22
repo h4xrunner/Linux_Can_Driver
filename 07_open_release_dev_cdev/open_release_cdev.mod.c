@@ -19,10 +19,12 @@ __section(".gnu.linkonce.this_module") = {
 static const struct modversion_info ____versions[]
 __used __section("__versions") = {
 	{ 0x122c3a7e, "_printk" },
+	{ 0xd75c6742, "__register_chrdev" },
+	{ 0x6bc3fbc0, "__unregister_chrdev" },
 	{ 0x39ff040a, "module_layout" },
 };
 
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "F19FE0F08841CDFCE0E7601");
+MODULE_INFO(srcversion, "735C3524011785149B28903");
