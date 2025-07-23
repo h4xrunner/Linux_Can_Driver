@@ -3,13 +3,11 @@
 / {
 	compatible = "brcm,bcm2835";
 	fragment@0 {
-		target-path = "/";
+		target = "<&uart1>";
 		__overlay__ {
-			my_device {
-				compatible = "brightlight,mydev";
+			echodev {
+				compatible = "brightlight,echodev";
 				status = "okay";
-				label = "Test";
-				my_value = <12>;
 			};
 		};
 	};
