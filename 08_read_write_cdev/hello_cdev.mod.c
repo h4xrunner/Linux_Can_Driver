@@ -18,13 +18,16 @@ __section(".gnu.linkonce.this_module") = {
 
 static const struct modversion_info ____versions[]
 __used __section("__versions") = {
-	{ 0xd75c6742, "__register_chrdev" },
-	{ 0x122c3a7e, "_printk" },
+	{ 0xb1ad28e0, "__gnu_mcount_nc" },
+	{ 0x92997ed8, "_printk" },
+	{ 0x2cfde9a2, "warn_slowpath_fmt" },
+	{ 0x51a910c0, "arm_copy_to_user" },
+	{ 0xefd6cf06, "__aeabi_unwind_cpp_pr0" },
+	{ 0x1ea3c9d1, "__register_chrdev" },
 	{ 0x6bc3fbc0, "__unregister_chrdev" },
-	{ 0x12a4e128, "__arch_copy_from_user" },
-	{ 0xdcb764ad, "memset" },
-	{ 0x6cbbfc54, "__arch_copy_to_user" },
-	{ 0x39ff040a, "module_layout" },
+	{ 0xae353d77, "arm_copy_from_user" },
+	{ 0x5f754e5a, "memset" },
+	{ 0x7d5dce20, "module_layout" },
 };
 
 MODULE_INFO(depends, "");
