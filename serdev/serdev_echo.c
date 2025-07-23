@@ -31,13 +31,31 @@ static struct serdev-device_driver serdev_echo_driver = {
 	},
 };
 
+static int serdev_echo_recv(struct serdev_device *serdev, const unsigned char *buffer, size_t size){
+	printk("serdev_echo - Received %ld bytes with \"\"\n", size, buffer);
+	return serdev_device_write_buf(struct serdev_device *serdev);
+}
+
+static const struct serdev_device_ops serdev_echo_ops{
+	.receive_buffer = serdev_echo_recv,
+};
 /**
  * @brief This function is called on loading the driver 
  */
 static int serdev_echo_probe(struct serdev_device *serdev) {
-
+	int status;
 	printk("serdev_echo - Now I am in the probe function!\n");
-
+	
+	serdev_device-set_client_ops(serdev, &serdev_echo_ops);
+	status = serdev_device_open(serdev);
+	if(status){
+		printk("serdev_echo - Error opening serial port!\n");
+		return -status;
+	}
+	
+	serdev_device_set_baudrate(serdev, 9600);
+	serdev_device_set_flow_control(serdev, false);
+	serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
 	return 0;
 }
 

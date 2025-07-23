@@ -357,13 +357,7 @@ serdev_echo.o: /home/h4xrunner/Linux_Can_Driver/serdev/serdev_echo.c \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/module.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/module.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/unwind.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/mod_devicetable.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/linux/mei.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/linux/mei_uuid.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/uuid.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/property.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/fwnode.h \
- /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/platform_device.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/serdev.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/device.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/dev_printk.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/ratelimit.h \
@@ -383,4 +377,47 @@ serdev_echo.o: /home/h4xrunner/Linux_Can_Driver/serdev/serdev_echo.c \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/device/driver.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/device.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/pm_wakeup.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/iopoll.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/delay.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/delay.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/io.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/io.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/pci_iomap.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/io.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/logic_pio.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/fwnode.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/uaccess.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/fault-inject-usercopy.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/nospec.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/uaccess.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/domain.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/unaligned.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/unaligned/packed_struct.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/vdso/unaligned.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/pgtable.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/proc-fns.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/glue-proc.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/pgtable-nopud.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/pgtable-nop4d.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/pgtable-hwdef.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/pgtable-2level-hwdef.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/tlbflush.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/asm/pgtable-2level.h \
+ arch/arm/include/generated/asm/extable.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/extable.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/asm-generic/access_ok.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/linux/termios.h \
+ arch/arm/include/generated/uapi/asm/termios.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/asm-generic/termios.h \
+ arch/arm/include/generated/uapi/asm/termbits.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/asm-generic/termbits.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/asm-generic/termbits-common.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/arch/arm/include/uapi/asm/ioctls.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/asm-generic/ioctls.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/mod_devicetable.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/linux/mei.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/uapi/linux/mei_uuid.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/uuid.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/property.h \
+ /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/platform_device.h \
  /usr/src/linux-headers-6.12.20+rpt-common-rpi/include/linux/of_device.h
