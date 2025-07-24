@@ -24,7 +24,7 @@ MODULE_DEVICE_TABLE(of, serdev_echo_ids);
 
 static struct serdev_device_driver serdev_echo_driver = {
 	.probe = serdev_echo,
-	.remove = serdev_echo_remove,
+	.remove = serdev_echo_driver,
 	.driver = {
 		.name = "serdev_echo",
 		.of_match_table = serdev_echo_ids,
@@ -46,7 +46,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
 	int status;
 	printk("serdev_echo - Now I am in the probe function!\n");
 	
-	serdev_device-set_client_ops(serdev, &serdev_echo_ops);
+	serdev_device_set_client_ops(serdev, &serdev_echo_ops);
 	status = serdev_device_open(serdev);
 	if(status){
 		printk("serdev_echo - Error opening serial port!\n");
@@ -64,7 +64,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
  */
 static void serdev_echo_remove(struct serdev_device *serdev) {
 	printk("serdev_echo - Now I am in the remove function\n");
-	return 0;
+	serdev_device_close(serdev);
 }
 
 /**
