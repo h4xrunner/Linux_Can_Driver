@@ -22,11 +22,11 @@ static struct of_device_id serdev_echo_ids[] = {
 };
 MODULE_DEVICE_TABLE(of, serdev_echo_ids);
 
-static struct serdev-device_driver serdev_echo_driver = {
+static struct serdev_device_driver serdev_echo_driver = {
 	.probe = serdev_echo,
-	.remove = dt_remove,
+	.remove = serdev_echo_remove,
 	.driver = {
-		.name = "my_device_driver",
+		.name = "serdev_echo",
 		.of_match_table = serdev_echo_ids,
 	},
 };
@@ -72,7 +72,7 @@ static void serdev_echo_remove(struct serdev_device *serdev) {
  */
 static int __init my_init(void) {
 	printk("serdev_echo - Loading the driver...\n");
-	if(platform_driver_register(&my_driver)) {
+	if(serdev_device_driver_register(&serdev_echo_driver)) {
 		printk("serdev_echo - Error! Could not load driver\n");
 		return -1;
 	}
@@ -84,7 +84,7 @@ static int __init my_init(void) {
  */
 static void __exit my_exit(void) {
 	printk("serdev_echo - Unload driver");
-	platform_driver_unregister(&my_driver);
+	serdev_device_driver_unregister(&serdev_echo_driver);
 }
 
 module_init(my_init);
