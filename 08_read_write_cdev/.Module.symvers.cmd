@@ -1,1 +1,0 @@
-savedcmd_/home/h4xrunner/Linux_Can_Driver/08_read_write_cdev/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/h4xrunner/Linux_Can_Driver/08_read_write_cdev/Module.symvers -n -T /home/h4xrunner/Linux_Can_Driver/08_read_write_cdev/modules.order -i Module.symvers -e 

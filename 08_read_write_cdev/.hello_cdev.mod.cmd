@@ -1,1 +1,0 @@
-savedcmd_/home/h4xrunner/Linux_Can_Driver/08_read_write_cdev/hello_cdev.mod := printf '%s\n'   hello_cdev.o | awk '!x[$$0]++ { print("/home/h4xrunner/Linux_Can_Driver/08_read_write_cdev/"$$0) }' > /home/h4xrunner/Linux_Can_Driver/08_read_write_cdev/hello_cdev.mod
