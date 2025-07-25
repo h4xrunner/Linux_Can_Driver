@@ -12,8 +12,8 @@ MODULE_AUTHOR("h4xrunner");
 MODULE_DESCRIPTION("A simple loopback driver for UART port");
 
 /* Declate the probe and remove functions */
-static int serdev_echo(struct serdev_device *serdev);
-static int void serdev_remove(struct serdev_device *serdev);
+static int serdev_echo_probe(struct serdev_device *serdev);
+static void serdev_echo_remove(struct serdev_device *serdev);
 
 static struct of_device_id serdev_echo_ids[] = {
 	{
@@ -23,21 +23,21 @@ static struct of_device_id serdev_echo_ids[] = {
 MODULE_DEVICE_TABLE(of, serdev_echo_ids);
 
 static struct serdev_device_driver serdev_echo_driver = {
-	.probe = serdev_echo,
-	.remove = serdev_echo_driver,
+	.probe = serdev_echo_probe,
+	.remove = serdev_echo_remove,
 	.driver = {
-		.name = "serdev_echo",
+			.name = "serdev-echo",
 		.of_match_table = serdev_echo_ids,
 	},
 };
 
-static int serdev_echo_recv(struct serdev_device *serdev, const unsigned char *buffer, size_t size){
-	printk("serdev_echo - Received %ld bytes with \"\"\n", size, buffer);
+static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char *buffer, size_t size){
+	printk("serdev_echo - Received %ld bytes with %s \"\"\n", size, buffer);
 	return serdev_device_write_buf(serdev, buffer, size);
 }
 
-static const struct serdev_device_ops serdev_echo_ops{
-	.receive_buffer = serdev_echo_recv,
+static const struct serdev_device_ops serdev_echo_ops = {
+	.receive_buf = serdev_echo_recv,
 };
 /**
  * @brief This function is called on loading the driver 
