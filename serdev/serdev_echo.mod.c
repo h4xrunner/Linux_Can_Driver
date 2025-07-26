@@ -37,4 +37,4 @@ MODULE_INFO(depends, "");
 MODULE_ALIAS("of:N*T*Cbrightlight,echodev");
 MODULE_ALIAS("of:N*T*Cbrightlight,echodevC*");
 
-MODULE_INFO(srcversion, "9BDE3DE9A195EA4D74D9670");
+MODULE_INFO(srcversion, "DE58F42F5A4F6729B3029C6");

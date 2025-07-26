@@ -32,7 +32,7 @@ static struct serdev_device_driver serdev_echo_driver = {
 };
 
 static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char *buffer, size_t size){
-	printk("serdev_echo - Received %ld bytes with  \"%s\"\n", size, buffer);
+	printk("serdev_echo - Received %ld  bytes with  \"%s\"\n", size, buffer);
 	return serdev_device_write_buf(serdev, buffer, size);
 }
 
