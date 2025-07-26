@@ -1,0 +1,1 @@
+savedcmd_/home/h4xrunner/Linux_Can_Driver/serdev/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/h4xrunner/Linux_Can_Driver/serdev/Module.symvers -n -T /home/h4xrunner/Linux_Can_Driver/serdev/modules.order -i Module.symvers -e 
