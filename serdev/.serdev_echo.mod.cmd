@@ -1,0 +1,1 @@
+savedcmd_/home/h4xrunner/Linux_Can_Driver/serdev/serdev_echo.mod := printf '%s\n'   serdev_echo.o | awk '!x[$$0]++ { print("/home/h4xrunner/Linux_Can_Driver/serdev/"$$0) }' > /home/h4xrunner/Linux_Can_Driver/serdev/serdev_echo.mod
