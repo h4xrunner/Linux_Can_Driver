@@ -32,8 +32,18 @@ static struct serdev_device_driver serdev_echo_driver = {
 };
 
 static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char *buffer, size_t size){
-	printk("serdev_echo - Received %ld  bytes with  \"%s\"\n", size, buffer);
-	return serdev_device_write_buf(serdev, buffer, size);
+    int i;
+    // Gelen bayt sayısını yazdır
+    printk(KERN_INFO "serdev_echo - Received %ld bytes: ", size);
+
+    // Her bir baytı hex formatında yazdır
+    for (i = 0; i < size; i++) {
+        printk(KERN_CONT "%02x ", buffer[i]); // KERN_CONT ile aynı satırda devam et
+    }
+    printk(KERN_CONT "\n"); // Satır sonu ekle
+
+    // Gelen veriyi geri gönder
+    return serdev_device_write_buf(serdev, buffer, size);
 }
 
 static const struct serdev_device_ops serdev_echo_ops = {
@@ -53,7 +63,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
 		return -status;
 	}
 	
-	serdev_device_set_baudrate(serdev, 9600);
+	serdev_device_set_baudrate(serdev, 230400);
 	serdev_device_set_flow_control(serdev, false);
 	serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
 
