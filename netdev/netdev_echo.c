@@ -9,6 +9,7 @@
 #include <linux/netdevice.h>
 #include <linux/skbuff.h>
 #include <net/net_namespace.h> // init_net
+#include <linux/can/dev.h>
 
 /* Meta Information */
 MODULE_LICENSE("GPL");
