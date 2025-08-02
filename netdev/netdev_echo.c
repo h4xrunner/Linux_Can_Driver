@@ -6,9 +6,9 @@
 #include <linux/platform_device.h>
 #include <linux/of_device.h>
 #include <linux/can.h>
-#include <linux/can/dev.h>
 #include <linux/netdevice.h>
 #include <linux/skbuff.h>
+#include <net/net_namespace.h> // init_net
 
 /* Meta Information */
 MODULE_LICENSE("GPL");
@@ -55,7 +55,7 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
     size_t bytes_processed = 0;
 
     // Log the received bytes for debugging purposes
-    printk(KERN_INFO "serdev_echo - Received %ld bytes: ", size);
+    printk(KERN_INFO "serdev_echo - Received %ld bytes: ", size); // %ld isteğe göre değişmedi
     for (i = 0; i < size; i++) {
         printk(KERN_CONT "%02x ", buffer[i]);
     }
@@ -139,7 +139,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
     int status;
     printk(KERN_INFO "serdev_echo - Now in the probe function!\n");
 
-    vcan_ndev = can_get_by_name("vcan0");
+    vcan_ndev = dev_get_by_name(&init_net, "vcan0");
     if (!vcan_ndev) {
         printk(KERN_ERR "serdev_echo - 'vcan0' interface not found. Did you create it with `sudo ip link`?\n");
         return -ENODEV;
@@ -150,7 +150,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
     status = serdev_device_open(serdev);
     if(status){
         printk(KERN_ERR "serdev_echo - Error opening serial port!\n");
-        can_put(vcan_ndev);
+        dev_put(vcan_ndev);
         return -status;
     }
 
@@ -169,7 +169,7 @@ static void serdev_echo_remove(struct serdev_device *serdev) {
     printk(KERN_INFO "serdev_echo - Now in the remove function\n");
     serdev_device_close(serdev);
     if (vcan_ndev) {
-        can_put(vcan_ndev);
+        dev_put(vcan_ndev);
         vcan_ndev = NULL;
     }
 }
