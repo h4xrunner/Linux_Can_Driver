@@ -1,1 +1,0 @@
-savedcmd_/home/h4xrunner/Linux_Can_Driver/netdev/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/h4xrunner/Linux_Can_Driver/netdev/Module.symvers -n -T /home/h4xrunner/Linux_Can_Driver/netdev/modules.order -i Module.symvers -e 

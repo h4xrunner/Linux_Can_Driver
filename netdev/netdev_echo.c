@@ -56,7 +56,7 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
     size_t bytes_processed = 0;
 
     // Log the received bytes for debugging purposes
-    printk(KERN_INFO "serdev_echo - Received %ld bytes: ", size); // %ld isteğe göre değişmedi
+    printk(KERN_INFO "netdev_echo - Received %ld bytes: ", size); // %ld isteğe göre değişmedi
     for (i = 0; i < size; i++) {
         printk(KERN_CONT "%02x ", buffer[i]);
     }
@@ -73,7 +73,7 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
     // Process the buffer to find and inject complete CAN frames
     while (uart_rx_buffer_pos >= CAN_HEADER_LEN) {
         if (uart_rx_buffer[0] != CAN_START_BYTE) {
-            printk(KERN_WARNING "serdev_echo - Wrong start byte (0x%02x). Skipping one byte.\n", uart_rx_buffer[0]);
+            printk(KERN_WARNING "netdev_echo - Wrong start byte (0x%02x). Skipping one byte.\n", uart_rx_buffer[0]);
             memmove(uart_rx_buffer, uart_rx_buffer + 1, uart_rx_buffer_pos - 1);
             uart_rx_buffer_pos--;
             continue;
@@ -84,7 +84,7 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
         size_t frame_len = CAN_HEADER_LEN + dlc;
 
         if (dlc > CAN_MAX_DLC) {
-            printk(KERN_WARNING "serdev_echo - Invalid DLC value (%d). Skipping frame.\n", dlc);
+            printk(KERN_WARNING "netdev_echo - Invalid DLC value (%d). Skipping frame.\n", dlc);
             uart_rx_buffer_pos = 0; // Clear the buffer to avoid further issues
             break;
         }
@@ -106,7 +106,7 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
                 cf->can_dlc = dlc;
                 memcpy(cf->data, &uart_rx_buffer[CAN_HEADER_LEN], dlc);
 
-                printk(KERN_INFO "serdev_echo - Injected CAN Frame (ID:0x%03X, DLC:%d): ", cf->can_id, cf->can_dlc);
+                printk(KERN_INFO "netdev_echo - Injected CAN Frame (ID:0x%03X, DLC:%d): ", cf->can_id, cf->can_dlc);
                 for (i = 0; i < cf->can_dlc; i++) {
                     printk(KERN_CONT "%02x ", cf->data[i]);
                 }
@@ -115,10 +115,10 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
                 netif_rx(skb); // Inject frame into vcan interface
                 bytes_processed += frame_len;
             } else {
-                printk(KERN_ERR "serdev_echo - Failed to allocate skb for CAN frame.\n");
+                printk(KERN_ERR "netdev_echo - Failed to allocate skb for CAN frame.\n");
             }
         } else {
-            printk(KERN_WARNING "serdev_echo - vcan_ndev is NULL, CAN frame not sent.\n");
+            printk(KERN_WARNING "netdev_echo - vcan_ndev is NULL, CAN frame not sent.\n");
         }
 
         // Remove the processed frame from the buffer
@@ -138,24 +138,24 @@ static const struct serdev_device_ops serdev_echo_ops = {
  */
 static int serdev_echo_probe(struct serdev_device *serdev) {
     int status;
-    printk(KERN_INFO "serdev_echo - Now in the probe function!\n");
+    printk(KERN_INFO "netdev_echo - Now in the probe function!\n");
 
     vcan_ndev = dev_get_by_name(&init_net, "vcan0");
     if (!vcan_ndev) {
-        printk(KERN_ERR "serdev_echo - 'vcan0' interface not found. Did you create it with `sudo ip link`?\n");
+        printk(KERN_ERR "netdev_echo - 'vcan0' interface not found. Did you create it with `sudo ip link`?\n");
         return -ENODEV;
     }
-    printk(KERN_INFO "serdev_echo - 'vcan0' interface found successfully.\n");
+    printk(KERN_INFO "netdev_echo - 'vcan0' interface found successfully.\n");
 
     serdev_device_set_client_ops(serdev, &serdev_echo_ops);
     status = serdev_device_open(serdev);
     if(status){
-        printk(KERN_ERR "serdev_echo - Error opening serial port!\n");
+        printk(KERN_ERR "netdev_echo - Error opening serial port!\n");
         dev_put(vcan_ndev);
         return -status;
     }
 
-    serdev_device_set_baudrate(serdev, 230400);
+    serdev_device_set_baudrate(serdev, 9600);
     serdev_device_set_flow_control(serdev, false);
     serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
 
@@ -167,7 +167,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
  * @brief This function is called on unloading the driver
  */
 static void serdev_echo_remove(struct serdev_device *serdev) {
-    printk(KERN_INFO "serdev_echo - Now in the remove function\n");
+    printk(KERN_INFO "netdev_echo - Now in the remove function\n");
     serdev_device_close(serdev);
     if (vcan_ndev) {
         dev_put(vcan_ndev);
@@ -179,9 +179,9 @@ static void serdev_echo_remove(struct serdev_device *serdev) {
  * @brief This function is called, when the module is loaded into the kernel
  */
 static int __init my_init(void) {
-    printk(KERN_INFO "serdev_echo - Loading the driver...\n");
+    printk(KERN_INFO "netdev_echo - Loading the driver...\n");
     if (serdev_device_driver_register(&serdev_echo_driver)) {
-        printk(KERN_ERR "serdev_echo - Error! Could not load driver\n");
+        printk(KERN_ERR "netdev_echo - Error! Could not load driver\n");
         return -1;
     }
     return 0;
@@ -191,7 +191,7 @@ static int __init my_init(void) {
  * @brief This function is called, when the module is removed from the kernel
  */
 static void __exit my_exit(void) {
-    printk(KERN_INFO "serdev_echo - Unloading driver\n");
+    printk(KERN_INFO "netdev_echo - Unloading driver\n");
     serdev_device_driver_unregister(&serdev_echo_driver);
 }
 
