@@ -1,0 +1,1 @@
+savedcmd_serdev_echo.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /usr/lib/modules/6.15.8-arch1-1/build/scripts/module.lds -o serdev_echo.ko serdev_echo.o serdev_echo.mod.o .module-common.o
