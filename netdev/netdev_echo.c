@@ -56,7 +56,7 @@ static size_t serdev_echo_recv(struct serdev_device *serdev, const unsigned char
     size_t bytes_processed = 0;
 
     // Log the received bytes for debugging purposes
-    printk(KERN_INFO "netdev_echo - Received %ld bytes: ", size); // %ld isteğe göre değişmedi
+    printk(KERN_INFO "netdev_echo - Received %zu bytes: ", size); // %ld -> %zu düzeltildi
     for (i = 0; i < size; i++) {
         printk(KERN_CONT "%02x ", buffer[i]);
     }
@@ -143,7 +143,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
 
     vcan_ndev = dev_get_by_name(&init_net, "vcan0");
     if (!vcan_ndev) {
-        printk(KERN_ERR "netdev_echo - 'vcan0' interface not found. Did you create it with `sudo ip link`?\n");
+        printk(KERN_ERR "netdev_echo - 'vcan0' interface not found. Did you create it with sudo ip link?\n");
         return -ENODEV;
     }
     printk(KERN_INFO "netdev_echo - 'vcan0' interface found successfully.\n");
@@ -159,7 +159,7 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
     serdev_device_set_baudrate(serdev, baudrate);
     serdev_device_set_flow_control(serdev, false);
     serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
-    printk("netdev_echo - UART Baudrate setted to %s\n", baudrate);
+    printk(KERN_INFO "netdev_echo - UART Baudrate set to %d\n", baudrate); // %s -> %d düzeltildi
 
     serdev_device_write_buf(serdev, "UART-to-CAN bridge driver initialized.\n", sizeof("UART-to-CAN bridge driver initialized.\n"));
     return 0;
