@@ -138,6 +138,7 @@ static const struct serdev_device_ops serdev_echo_ops = {
  */
 static int serdev_echo_probe(struct serdev_device *serdev) {
     int status;
+    int baudrate = 9600;
     printk(KERN_INFO "netdev_echo - Now in the probe function!\n");
 
     vcan_ndev = dev_get_by_name(&init_net, "vcan0");
@@ -155,9 +156,10 @@ static int serdev_echo_probe(struct serdev_device *serdev) {
         return -status;
     }
 
-    serdev_device_set_baudrate(serdev, 9600);
+    serdev_device_set_baudrate(serdev, baudrate);
     serdev_device_set_flow_control(serdev, false);
     serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
+    printk("netdev_echo - UART Baudrate setted to %s\n", baudrate);
 
     serdev_device_write_buf(serdev, "UART-to-CAN bridge driver initialized.\n", sizeof("UART-to-CAN bridge driver initialized.\n"));
     return 0;
