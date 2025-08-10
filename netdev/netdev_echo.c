@@ -15,10 +15,10 @@
 
 /* Meta Information */
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("h4xrunner + GPT");
-MODULE_DESCRIPTION("A robust UART-to-CAN bridge driver (serdev <-> vcan0)");
+MODULE_AUTHOR("h4xrunner");
+MODULE_DESCRIPTION("An UART-to-CAN bridge driver for Tufan Electromobile ADAS Card (serdev <-> vcan0)");
 
-/* Global variables for CAN handling */
+
 static struct net_device *vcan_ndev;
 static struct serdev_device *global_serdev; // UART TX için
 
@@ -32,16 +32,16 @@ static size_t uart_rx_buffer_pos;
 #define CAN_DLC_LEN 1
 #define CAN_HEADER_LEN (1 + CAN_ID_LEN + CAN_DLC_LEN)
 
-/* Original net_device_ops pointer for vcan0 */
+// Original net_device_ops pointer for vcan0
 static const struct net_device_ops *orig_ndo;
 
-/* Forward declarations */
+// Forward declarations
 static int serdev_echo_probe(struct serdev_device *serdev);
 static void serdev_echo_remove(struct serdev_device *serdev);
 
-/* Device match table */
+// Device match table
 static struct of_device_id serdev_echo_ids[] = {
-    { .compatible = "brightlight,echodev", },
+    { .compatible = "brightlight,echodev", },// Matching brighlight,echocdev named device on device tree
     { /* sentinel */ }
 };
 MODULE_DEVICE_TABLE(of, serdev_echo_ids);
@@ -76,7 +76,7 @@ static netdev_tx_t vcan_uart_xmit(struct sk_buff *skb, struct net_device *dev)
         return NETDEV_TX_OK;
     }
 
-    /* UART frame format: start byte + 2 byte CAN ID + DLC + data */
+    // UART frame format: start byte + 2 byte CAN ID + DLC + data
     tx_buf[0] = CAN_START_BYTE;
     tx_buf[1] = (cf->can_id >> 8) & 0xFF;
     tx_buf[2] = cf->can_id & 0xFF;
@@ -121,7 +121,7 @@ static void process_uart_buffer(void)
 
         size_t frame_len = CAN_HEADER_LEN + dlc;
         if (uart_rx_buffer_pos < frame_len) {
-            /* Tam frame yok, daha fazla veri bekle */
+            // Tam frame olmadığından daha fazla data beklicek
             break;
         }
 
